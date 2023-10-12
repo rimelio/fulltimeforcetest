@@ -18,6 +18,7 @@ Se utilizó Angular como framework para el front-end y NodeJs y NestJs para el b
 
 ## Instalacion
 
+<p>En caso de no tener el proyecto de git, puesto que es un repositorio privado deberá ser solicitado acceso</p>
 <p>Bajar el proyecto</p>
 
 ```bash
