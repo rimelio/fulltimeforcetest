@@ -1,30 +1,36 @@
 import { Controller, Get, Header, Req, Res } from '@nestjs/common';
+import { OctokitService } from 'nestjs-octokit';
 import { Request, Response } from 'express';
 const https = require('https')
 
 @Controller('git')
 export class GitController {
-
+    constructor(private readonly octokitService: OctokitService) {}
     @Get()
     @Header('Access-Control-Allow-Origin', 'http://localhost:4200')
-    getCommits(
+    async etCommits(
         @Req() req: Request,
         @Res() res: Response,
     ){
-        console.log('llego')
-        const options ={
-            hostname: 'api.github.com',
-            path: '/repos/rimelio/Intro/commits',
-            OAUth: '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',
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36'
-            },
+        try{
+            const response = await this.octokitService.request('GET /repos/{owner}/{repo}/commits', {
+                owner: process.env.OWNER,
+                repo: process.env.REPO
+              })
+            const commits = []
+            response.data.forEach(i =>{
+                commits.push({
+                    author: i.author.login,
+                    date: i.commit.author.date,
+                    message: i.commit.message,
+                    commit: i.sha.slice(0,7),
+                    link: i.html_url,
+                    bio: i.author.html_url
+                  })
+            })
+            res.json(commits)
+        }catch(err){
+            console.log(err)
         }
-        https.get(options, apiResponse => {
-            apiResponse.pipe(res)
-        }).on('error', error =>{
-            console.log(error);
-            res.status(500).send('Something went wrong!');
-        })
     }
 }

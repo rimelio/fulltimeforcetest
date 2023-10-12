@@ -1,5 +1,15 @@
 import { Component } from '@angular/core';
 import { AppService } from './app.service';
+
+interface Commit{
+  author: string,
+  date: string,
+  message: string,
+  commit: string,
+  link: string,
+  bio: string,
+}
+
 @Component({
   selector: 'app-root',
   providers: [AppService],
@@ -16,20 +26,11 @@ export class AppComponent  {
     console.log('Hola')
     this.getCommits()
   }
-  commits: any[] = []
+  commits: Commit[] = []
 
   getCommits(){
     this.appSvc.getCommits().subscribe(result =>{
-      result.forEach((i: any) => {
-        this.commits.push({
-          author: i.author.login,
-          date: i.commit.author.date,
-          message: i.commit.message,
-          commit: i.sha.slice(0,7),
-          link: i.html_url,
-          bio: i.author.html_url
-        })
-      });
+      this.commits = [...result];
     }
     )
   }
