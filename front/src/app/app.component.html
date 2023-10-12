@@ -1,0 +1,24 @@
+
+<div class="content">
+  
+  <button class="btn btn-success" (click)="getCommits">
+    Refresh
+  </button>
+  <ul class="list-group" style="list-style-type: none;">
+    <li class="list-group-item" style="display: flex;" *ngFor="let commit of commits">
+      <div style="width: 600px">
+        <h5 class="mb-2">{{commit.message}}</h5>
+        <div>
+          <a [href]="commit.bio">{{commit.author}}</a>
+          commited on
+          <span >{{commit.date}}</span>
+        </div>
+      </div>
+      <div >
+        <button class="btn">
+          <a [href]="commit.link">{{commit.commit}}</a>
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
