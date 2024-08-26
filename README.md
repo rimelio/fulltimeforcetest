@@ -14,7 +14,7 @@ Se utilizó Angular como framework para el front-end y NodeJs y NestJs para el b
 
 ## Screenshots
 
-<img src="https://i.imgur.com/hF5VGhm.jpg"></img>
+<img src="https://imgur.com/Ca5ocZ6.jpg"></img>
 
 ## Instalacion
 
